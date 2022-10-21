@@ -8,7 +8,7 @@ const Color PLAYER2_COLOR = Colors.blue;
 const String PLAYER1_SYMBOL = 'X';
 const String PLAYER2_SYMBOL = 'O';
 
-const String GAME_TITLE = 'Jogo da Velha :0';
+const String GAME_TITLE = 'Joguim :D';
 const String TIED_TITLE = 'Empate!';
 const String WIN_TITLE = '[SYMBOL] venceu!';
 const String DIALOG_MESSAGE = 'Pressione REINICIAR para começar denovo!';

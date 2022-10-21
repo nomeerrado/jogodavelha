@@ -5,6 +5,7 @@ import '../core/constants.dart';
 import '../enums/player_type.dart';
 import '../enums/winner_type.dart';
 import '../widgets/custom_dialog.dart';
+import 'configuracoes.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -21,6 +22,7 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
+      backgroundColor: Colors.black54,
     );
   }
 
@@ -28,6 +30,17 @@ class _GamePageState extends State<GamePage> {
     return AppBar(
       title: const Text(GAME_TITLE),
       centerTitle: true,
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(
+                    builder: (_) => Configuracoes(_controller)))
+                .whenComplete(() => {setState(() {})});
+          },
+          icon: const Icon(Icons.settings),
+        ),
+      ],
     );
   }
 
@@ -38,7 +51,8 @@ class _GamePageState extends State<GamePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16.0),
             child: ElevatedButton(
               onPressed: () => setState(() {
                 _controller.resetWinCount();
@@ -55,15 +69,15 @@ class _GamePageState extends State<GamePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _controller.Player1Wins.toString(),
+                      "${_controller.nomePlayer1 ?? PLAYER1_SYMBOL} [${_controller.Player1Wins.toString()}]",
                       style: const TextStyle(fontSize: 32.0),
                     ),
                     const Text(
-                      'X',
+                      ' - ',
                       style: TextStyle(fontSize: 32.0),
                     ),
                     Text(
-                      _controller.Player2Wins.toString(),
+                      "[${_controller.Player2Wins.toString()}] ${_controller.nomePlayer2 ?? PLAYER2_SYMBOL} ",
                       style: const TextStyle(fontSize: 32.0),
                     ),
                   ],
@@ -81,7 +95,7 @@ class _GamePageState extends State<GamePage> {
 
   _buildResetButton() {
     return ElevatedButton(
-      child: Text(RESET_BUTTON_LABEL),
+      child: Text(RESET_BUTTON_LABEL, style: TextStyle(color: Colors.white),),
       onPressed: _onResetGame,
     );
   }
@@ -187,7 +201,7 @@ class _GamePageState extends State<GamePage> {
     return SwitchListTile(
       title: Text(_controller.isSinglePlayer!
           ? 'Modo Selecionado: Um Jogador'
-          : 'Modo Selecionado: Dois Jogadores'),
+          : 'Modo Selecionado: Dois Jogadores', style: TextStyle(color: Colors.white),),
       secondary: Icon(_controller.isSinglePlayer! ? Icons.person : Icons.group),
       value: _controller.isSinglePlayer!,
       onChanged: (value) {

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+
 import '../core/constants.dart';
 import '../core/winner_rules.dart';
 import '../enums/player_type.dart';
@@ -16,6 +18,11 @@ class GameController {
   int Player1Wins = 0;
   int Player2Wins = 0;
 
+  Color bgTileColor = Colors.grey;
+
+  String? nomePlayer1;
+  String? nomePlayer2;
+
   bool get hasMoves =>
       (movesPlayer1.length + movesPlayer2.length) != BOARD_SIZE;
 
@@ -29,8 +36,7 @@ class GameController {
     movesPlayer2.clear();
     currentPlayer = PlayerType.player1;
     tiles =
-        List<BoardTile>.generate(BOARD_SIZE, (index) => BoardTile(index + 1));
-    resetWinCount();
+        List<BoardTile>.generate(BOARD_SIZE, (index) => BoardTile(index + 1, color: bgTileColor));
   }
 
   void reset() {
