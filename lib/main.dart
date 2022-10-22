@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Joguim',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+         colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Color(0xFF581485),
+          secondary: Color(0xFF581485),
+        ),
         textTheme: const TextTheme(
           bodyText1: TextStyle(color: Colors.white),
           bodyText2: TextStyle(color: Colors.white),

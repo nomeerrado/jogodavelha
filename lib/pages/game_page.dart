@@ -22,7 +22,7 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
-      backgroundColor: Colors.black54,
+      backgroundColor: Color(0xFF000000),
     );
   }
 
@@ -52,7 +52,7 @@ class _GamePageState extends State<GamePage> {
         children: [
           Container(
             padding:
-                const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16.0),
+                const EdgeInsets.symmetric(horizontal: 48.0, vertical: 8.0),
             child: ElevatedButton(
               onPressed: () => setState(() {
                 _controller.resetWinCount();
@@ -81,7 +81,14 @@ class _GamePageState extends State<GamePage> {
                       style: const TextStyle(fontSize: 32.0),
                     ),
                   ],
-                )
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 48.0),
+                  child: Text(
+                    'Vez de: ${_controller.currentPlayer == PlayerType.player1 ? PLAYER1_SYMBOL.toString() : PLAYER2_SYMBOL.toString()}',
+                    style: TextStyle(fontSize: 32.0),
+                  ),
+                ),
               ],
             ),
           ),
@@ -95,7 +102,10 @@ class _GamePageState extends State<GamePage> {
 
   _buildResetButton() {
     return ElevatedButton(
-      child: Text(RESET_BUTTON_LABEL, style: TextStyle(color: Colors.white),),
+      child: Text(
+        RESET_BUTTON_LABEL,
+        style: TextStyle(color: Colors.white),
+      ),
       onPressed: _onResetGame,
     );
   }
@@ -199,9 +209,12 @@ class _GamePageState extends State<GamePage> {
 
   _buildPlayerMode() {
     return SwitchListTile(
-      title: Text(_controller.isSinglePlayer!
-          ? 'Modo Selecionado: Um Jogador'
-          : 'Modo Selecionado: Dois Jogadores', style: TextStyle(color: Colors.white),),
+      title: Text(
+        _controller.isSinglePlayer!
+            ? 'Modo Selecionado: Um Jogador'
+            : 'Modo Selecionado: Dois Jogadores',
+        style: TextStyle(color: Colors.white),
+      ),
       secondary: Icon(_controller.isSinglePlayer! ? Icons.person : Icons.group),
       value: _controller.isSinglePlayer!,
       onChanged: (value) {

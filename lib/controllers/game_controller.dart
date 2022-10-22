@@ -13,6 +13,7 @@ class GameController {
   List<int> movesPlayer1 = [];
   List<int> movesPlayer2 = [];
   PlayerType? currentPlayer;
+  PlayerType? lastCurrentPlayer;
   bool? isSinglePlayer;
 
   int Player1Wins = 0;
@@ -28,18 +29,26 @@ class GameController {
 
   GameController() {
     isSinglePlayer = false;
+    currentPlayer = PlayerType.player1;
+    lastCurrentPlayer = currentPlayer;
     _initialize();
   }
 
   void _initialize() {
     movesPlayer1.clear();
     movesPlayer2.clear();
-    currentPlayer = PlayerType.player1;
-    tiles =
-        List<BoardTile>.generate(BOARD_SIZE, (index) => BoardTile(index + 1, color: bgTileColor));
+    tiles = List<BoardTile>.generate(
+        BOARD_SIZE, (index) => BoardTile(index + 1, color: bgTileColor));
   }
 
   void reset() {
+    if (lastCurrentPlayer == PlayerType.player1) {
+      currentPlayer = PlayerType.player2;
+      lastCurrentPlayer = currentPlayer;
+    } else {
+      currentPlayer = PlayerType.player1;
+      lastCurrentPlayer = currentPlayer;
+    }
     _initialize();
   }
 
