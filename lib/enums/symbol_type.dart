@@ -1,0 +1,1 @@
+enum SymbolType { TEXT, IMG }

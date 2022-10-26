@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogodavelha/enums/symbol_type.dart';
 
 import '../controllers/game_controller.dart';
 import '../core/constants.dart';
@@ -128,7 +129,28 @@ class _GamePageState extends State<GamePage> {
   Widget _buildTile(context, index) {
     return GestureDetector(
       onTap: () => _onMarkTile(index),
-      child: Container(
+      child: _Tile(index),
+    );
+  }
+
+  Widget _Tile(index) {
+    if (_controller.symbolType == SymbolType.IMG) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: _controller.tiles[index].symbol.isEmpty
+              ? _controller.tiles[index].color
+              : Colors.white,
+          image: _controller.tiles[index].symbol.isEmpty
+              ? null
+              : DecorationImage(
+                  image: AssetImage(
+                  'assets/imgs/${_controller.tiles[index].symbol}.png',
+                )),
+        ),
+      );
+    } else if (_controller.symbolType == SymbolType.TEXT) {
+      return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: _controller.tiles[index].color,
@@ -142,8 +164,9 @@ class _GamePageState extends State<GamePage> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
+    return Container();
   }
 
   _onResetGame() {

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:jogodavelha/enums/symbol_type.dart';
 
 import '../core/constants.dart';
 import '../core/winner_rules.dart';
@@ -9,6 +10,8 @@ import '../enums/winner_type.dart';
 import '../models/board_tile.dart';
 
 class GameController {
+  SymbolType symbolType = SymbolType.TEXT;
+
   List<BoardTile> tiles = [];
   List<int> movesPlayer1 = [];
   List<int> movesPlayer2 = [];
@@ -42,13 +45,18 @@ class GameController {
   }
 
   void reset() {
-    if (lastCurrentPlayer == PlayerType.player1) {
-      currentPlayer = PlayerType.player2;
-      lastCurrentPlayer = currentPlayer;
+    if (!isSinglePlayer!) {
+      if (lastCurrentPlayer == PlayerType.player1) {
+        currentPlayer = PlayerType.player2;
+        lastCurrentPlayer = currentPlayer;
+      } else {
+        currentPlayer = PlayerType.player1;
+        lastCurrentPlayer = currentPlayer;
+      }
     } else {
       currentPlayer = PlayerType.player1;
-      lastCurrentPlayer = currentPlayer;
     }
+
     _initialize();
   }
 
